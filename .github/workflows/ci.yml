@@ -6,7 +6,7 @@ on:
 
 jobs:
   test:
-    name: test (${{ matrix.go }})
+    name: test (${{ matrix.name }})
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
