@@ -35,7 +35,7 @@ func (m *Msg) PackTo(b *Builder) {
 		if b.Err() != nil {
 			break
 		}
-		b.WriteTLV(tlv)
+		_, _ = b.WriteTLV(tlv) // b.Err() takes care of errors
 	}
 }
 

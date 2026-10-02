@@ -43,10 +43,10 @@ func (h *TLVHeader) UnmarshalBinary(data []byte) error {
 }
 
 // AppendBinary implements [encoding.BinaryAppender].
-func (tlv *KeepAlive) AppendBinary(b []byte) ([]byte, error) {
+func (tlv *KeepAlive) AppendBinary(b []byte) (b1 []byte, err error) {
 	b = append(b, make([]byte, KeepAliveLen)...)
-	tlv.pack(b, len(b)-KeepAliveLen, nil)
-	return b, nil
+	_, err = tlv.pack(b, len(b)-KeepAliveLen, nil)
+	return b, err
 }
 
 // MarshalBinary implements [encoding.BinaryMarshaler].
@@ -69,8 +69,8 @@ func (tlv *KeepAlive) UnmarshalBinary(data []byte) error {
 // AppendBinary implements [encoding.BinaryAppender].
 func (tlv *RetryDelay) AppendBinary(b []byte) (b1 []byte, err error) {
 	b = append(b, make([]byte, RetryDelayLen)...)
-	tlv.pack(b, len(b)-RetryDelayLen, nil)
-	return b, nil
+	_, err = tlv.pack(b, len(b)-RetryDelayLen, nil)
+	return b, err
 }
 
 // MarshalBinary implements [encoding.BinaryMarshaler].
@@ -93,8 +93,8 @@ func (tlv *RetryDelay) UnmarshalBinary(data []byte) error {
 // AppendBinary implements [encoding.BinaryAppender].
 func (tlv *EncryptionPadding) AppendBinary(b []byte) (b1 []byte, err error) {
 	b = append(b, make([]byte, tlv.Padding)...)
-	tlv.pack(b, len(b)-int(tlv.Padding), nil)
-	return b, nil
+	_, err = tlv.pack(b, len(b)-int(tlv.Padding), nil)
+	return b, err
 }
 
 // MarshalBinary implements [encoding.BinaryMarshaler].
@@ -196,10 +196,10 @@ func (tlv *Push) UnmarshalBinary(data []byte) error {
 }
 
 // AppendBinary implements [encoding.BinaryAppender].
-func (tlv *Unsubscribe) AppendBinary(b []byte) ([]byte, error) {
+func (tlv *Unsubscribe) AppendBinary(b []byte) (b1 []byte, err error) {
 	b = append(b, make([]byte, UnsubscribeLen)...)
-	tlv.pack(b, len(b)-UnsubscribeLen, nil)
-	return b, nil
+	_, err = tlv.pack(b, len(b)-UnsubscribeLen, nil)
+	return b, err
 }
 
 // MarshalBinary implements [encoding.BinaryMarshaler].
