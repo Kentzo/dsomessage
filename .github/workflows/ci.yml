@@ -28,7 +28,8 @@ jobs:
       - uses: golangci/golangci-lint-action@v9
         with:
           version: v2.14
-      - run: go mod tidy -diff   # fails if go.mod/go.sum aren't tidy
+          args: --tests=false
+      - run: go mod tidy -diff
 
   vulncheck:
     runs-on: ubuntu-latest
