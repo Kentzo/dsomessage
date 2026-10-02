@@ -32,10 +32,10 @@ func (m *Msg) PackTo(b *Builder) {
 	b.Clear()
 	b.SetHeader(m.MsgHeader)
 	for _, tlv := range m.TLV {
-		if b.Err() != nil {
+		_, err := b.WriteTLV(tlv)
+		if err != nil {
 			break
 		}
-		_, _ = b.WriteTLV(tlv) // b.Err() takes care of errors
 	}
 }
 
