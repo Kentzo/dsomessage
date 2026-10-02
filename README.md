@@ -1,5 +1,6 @@
 [![Go Reference](https://pkg.go.dev/badge/github.com/Kentzo/dsomessage.svg)](https://pkg.go.dev/github.com/Kentzo/dsomessage)
 [![Coverage Status](https://coveralls.io/repos/github/Kentzo/dsomessage/badge.svg?branch=docs)](https://coveralls.io/github/Kentzo/dsomessage?branch=docs)
+[![CI](https://github.com/Kentzo/dsomessage/actions/workflows/ci.yml/badge.svg?branch=docs)](https://github.com/Kentzo/dsomessage/actions/workflows/ci.yml?query=branch%3Adocs)
 
 # dsomessage
 
