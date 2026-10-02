@@ -120,7 +120,7 @@ type (
 	// Origin indicates side message originated from for verification of RFC compliance.
 	Origin uint16
 
-	// Usage is RFC 8490, Section 8.2 TLV usage matrix.
+	// Usage RFC 8490, Section 8.2 TLV usage contexts matrix.
 	Usage uint16
 )
 
