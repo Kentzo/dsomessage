@@ -1,6 +1,6 @@
-[![Go Reference](https://pkg.go.dev/badge/github.com/Kentzo/dsomessage.svg)](https://pkg.go.dev/github.com/Kentzo/dsomessage)
-[![Coverage Status](https://coveralls.io/repos/github/Kentzo/dsomessage/badge.svg?branch=main)](https://coveralls.io/github/Kentzo/dsomessage?branch=main)
-[![CI](https://github.com/Kentzo/dsomessage/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Kentzo/dsomessage/actions/workflows/ci.yml?query=branch%3Amain)
+[![Go Reference](https://pkg.go.dev/badge/github.com/kentzo/dsomessage.svg)](https://pkg.go.dev/github.com/kentzo/dsomessage)
+[![Coverage Status](https://coveralls.io/repos/github/kentzo/dsomessage/badge.svg?branch=main)](https://coveralls.io/github/kentzo/dsomessage?branch=main)
+[![CI](https://github.com/kentzo/dsomessage/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/kentzo/dsomessage/actions/workflows/ci.yml?query=branch%3Amain)
 
 # dsomessage
 
