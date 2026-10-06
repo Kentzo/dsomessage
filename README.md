@@ -9,5 +9,11 @@ as well as parsing and building machinery.
 
 The goal is minimal overhead and control over heap allocations and processing.
 
+## See Also
+
+[dsosession][dsosession] for session managemend and [coredns-dso][https://github.com/Kentzo/coredns-dso] for extended example.
+
 [rfc8490]: https://www.rfc-editor.org/rfc/rfc8490.html
 [rfc8765]: https://www.rfc-editor.org/rfc/rfc8765.html
+[dsosession]: https://pkg.go.dev/github.com/kentzo/dsosession
+[coredns-dso]: https://github.com/Kentzo/coredns-dso
