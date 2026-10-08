@@ -554,14 +554,9 @@ func (tlv *Subscribe) Verify(usage Usage) error {
 }
 
 // Equal implements [TLV.Equal].
-//
-// Assumes Name is decoded by [dns.UnpackDomainName]. In particular,
-// it expects escape sequences (\\DDD) in place of unicode characters
-// that have lowercase per [strings.ToLower]) but follow case-insensitive
-// comparison per RFC 1035, Section 3.1
 func (tlv *Subscribe) Equal(tlv1 TLV) bool {
 	sub, ok := tlv1.(*Subscribe)
-	return ok && tlv.Class == sub.Class && tlv.RRType == sub.RRType && strings.EqualFold(tlv.Name, sub.Name)
+	return ok && tlv.Class == sub.Class && tlv.RRType == sub.RRType && CompareNames(tlv.Name, sub.Name) == 0
 }
 
 // Clone implements [TLV.Clone].
