@@ -221,6 +221,8 @@ func (b *Builder) WriteSubscribe(tlv *Subscribe) (int, error) {
 }
 
 // WritePush writes [Push] TLV to underlying buffer.
+//
+// See [Builder.WritePushChange] for incremental writer that doesn't require big enough buffer.
 func (b *Builder) WritePush(tlv *Push) (int, error) {
 	return writeDynamicLenTLV(b, tlv)
 }
