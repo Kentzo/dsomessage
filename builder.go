@@ -87,6 +87,9 @@ func (b *Builder) EnableLengthPrefix() *Builder {
 }
 
 // EnableCompression enables compression for [dns.PackRR] and [dns.PackDomainName].
+//
+// Be aware that together with [Builder.EnablePadding] there is edge case where
+// compression may leave <4 bytes and cause [ErrShortWrite].
 func (b *Builder) EnableCompression() *Builder {
 	if b.err == nil {
 		if b.compression == nil {

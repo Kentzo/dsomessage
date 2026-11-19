@@ -312,13 +312,14 @@ func TestTLVUsage(t *testing.T) {
 			t.Parallel()
 
 			tc.m.TLV = tlvs
-			b := NewBuilder(make([]byte, 128))
-			tc.m.PackTo(b)
-			msgBytes, _ := b.Message()
+			msgBytes, err := tc.m.Pack()
+			if err != nil {
+				t.Fatalf("Expected to pack message, got %v", err)
+			}
 
 			var p Parser
 			p.SetResponseType(tc.repType)
-			_, err := p.Start(msgBytes, tc.origin)
+			_, err = p.Start(msgBytes, tc.origin)
 			if err != nil {
 				t.Fatalf("Expected parser to start, got %v", err)
 			}

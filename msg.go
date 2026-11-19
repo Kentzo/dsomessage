@@ -5,13 +5,23 @@ import (
 	"slices"
 )
 
-type
-// Msg bundles DSO header and TLVs.
-Msg struct {
-	MsgHeader
-	TLV    []TLV
-	Origin Origin
-}
+type (
+	// Msg bundles DSO header and TLVs.
+	//
+	// Convenient utility. For performance and granular control over allocations consider [Parser] and [Builder].
+	Msg struct {
+		MsgHeader
+		TLV    []TLV
+		Origin Origin
+	}
+
+	// PackOptions determine builder's configuration in [Msg.PackWith].
+	PackOptions struct {
+		LengthPrefix bool
+		BlockLen     uint16
+		Compression  bool
+	}
+)
 
 // Equal returns true of messages have equal header and TLVs.
 func (m *Msg) Equal(m1 *Msg) bool {
@@ -27,7 +37,7 @@ func (m *Msg) Len() (n int) {
 	return n
 }
 
-// PackTo packs message with given builder.
+// PackTo packs message with given [Builder].
 func (m *Msg) PackTo(b *Builder) {
 	b.Clear()
 	b.SetHeader(m.MsgHeader)
@@ -39,9 +49,42 @@ func (m *Msg) PackTo(b *Builder) {
 	}
 }
 
-// Pack packs message with default builder.
+// Pack packs message with default [Builder].
 func (m *Msg) Pack() (msg []byte, err error) {
 	b := NewBuilder(make([]byte, m.Len()))
+	m.PackTo(b)
+	return b.Message()
+}
+
+// PackWith packs message with [Builder] configured using given options.
+func (m *Msg) PackWith(opts PackOptions) (msg []byte, err error) {
+	var (
+		msgLen = m.Len()
+		bufLen = msgLen
+	)
+	if opts.BlockLen > 1 {
+		bufLen = PaddedMsgLen(msgLen, opts.BlockLen)
+		// With compression enabled, final message length is not known. This is ok,
+		// because [Msg.Len] calculates upper boundary. However, when padding is also
+		// enabled there is an edge case where buffer is big enough to fit the message
+		// and yet too short to fit the padding.
+		if opts.Compression && bufLen-msgLen < TLVHeaderLen {
+			bufLen = PaddedMsgLen(msgLen+TLVHeaderLen, opts.BlockLen)
+		}
+	}
+	if opts.LengthPrefix {
+		bufLen += LengthPrefixLen
+	}
+	b := NewBuilder(make([]byte, bufLen))
+	if opts.Compression {
+		b.EnableCompression()
+	}
+	if opts.LengthPrefix {
+		b.EnableLengthPrefix()
+	}
+	if opts.BlockLen > 1 {
+		b.EnablePadding(opts.BlockLen)
+	}
 	m.PackTo(b)
 	return b.Message()
 }

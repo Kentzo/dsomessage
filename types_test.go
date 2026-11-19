@@ -91,16 +91,11 @@ func TestBuilderParserParity(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			t.Parallel()
 
-			b := NewBuilder(make([]byte, 127))
-			if tc.compress {
-				b.EnableCompression()
-			}
 			testMsg := testMsg.Clone()
-			testMsg.PackTo(b)
-			if err := b.Err(); err != nil {
+			msgBytes, err := testMsg.PackWith(PackOptions{Compression: tc.compress})
+			if err != nil {
 				t.Fatalf("Expected to pack message, got %v", err)
 			}
-			msgBytes, _ := b.Message()
 			if !slices.Equal(msgBytes, tc.msgBytes) {
 				t.Errorf("Expected packed messages to be equal")
 			}
